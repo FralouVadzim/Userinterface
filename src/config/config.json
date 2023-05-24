@@ -1,0 +1,7 @@
+{
+    "browser": "chrome",
+    "startUrl": "https://demoqa.com/",
+    "capabilities": {
+        "args": ["--start-maximized"]
+    }
+}

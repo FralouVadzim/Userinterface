@@ -1,0 +1,8 @@
+{
+    "alertText1": "You clicked a button",
+    "alertText2": "Do you confirm action?",
+    "alertText3": "Please enter your name",
+    "textAfterAlertConfirmation": "You selected Ok",
+    "textAfterPromptIntoAlert": "You entered ",
+    "numberOfCharsForRandomAlertString": 5
+}
