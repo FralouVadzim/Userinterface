@@ -7,7 +7,7 @@ const leftPanelForm = require('./forms/leftPanelForm');
 class AlertsPage extends BaseForm{
     
     constructor(){
-        super(new Label(By.id('javascriptAlertsWrapper'), 'Alerts form'), 'Alerts page');
+        super(new Label(By.xpath(`//*[@class="main-header" and text()="Alerts"]`), 'Header label alerts'), 'Alerts page');
         this._leftPanelForm = leftPanelForm;
     }
 

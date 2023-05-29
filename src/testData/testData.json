@@ -4,5 +4,7 @@
     "alertText3": "Please enter your name",
     "textAfterAlertConfirmation": "You selected Ok",
     "textAfterPromptIntoAlert": "You entered ",
-    "numberOfCharsForRandomAlertString": 5
+    "numberOfCharsForRandomAlertString": 5,
+    "parentFrametext": "Parent frame",
+    "childIFrametext": "Child Iframe"
 }

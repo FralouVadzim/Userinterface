@@ -1,4 +1,9 @@
 {
     "buttonAlertsFrameWindows": "Alerts, Frame & Windows",
-    "buttonAlerts": "Alerts"
+    "buttonAlerts": "Alerts",
+    "buttonNestedFrames": "Nested Frames",
+    "buttonFrames": "Frames",
+    "buttonElements": "Elements",
+    "buttonWebTables": "Web Tables",
+    "buttonBrowserWindows": "Browser Windows"
 }

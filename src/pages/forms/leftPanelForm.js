@@ -4,7 +4,7 @@ const Label = require('../../framework/elements/label');
 const Button = require('../../framework/elements/button');
 const elementNames = require('../elementNames/elementNames-en.json');
 
-class AlertsFrameWindows extends BaseForm{
+class leftPanelForm extends BaseForm{
     
     constructor(){
         super(new Label(By.className(`accordion`), 'Left panel'), 'Left panel form');
@@ -12,8 +12,32 @@ class AlertsFrameWindows extends BaseForm{
 
     #buttonAllerts = this.#getButtonByNameFromExpand(elementNames.buttonAlerts, elementNames.buttonAlertsFrameWindows);
 
-    clickAlerts(){
+    #buttonNestedFrames = this.#getButtonByNameFromExpand(elementNames.buttonNestedFrames, elementNames.buttonAlertsFrameWindows);
+
+    #buttonFrames = this.#getButtonByNameFromExpand(elementNames.buttonFrames, elementNames.buttonAlertsFrameWindows);
+
+    #buttonWebTables = this.#getButtonByNameFromExpand(elementNames.buttonWebTables, elementNames.buttonElements);
+
+    #buttonBrowserWindows = this.#getButtonByNameFromExpand(elementNames.buttonBrowserWindows, elementNames.buttonAlertsFrameWindows);
+
+    async clickAlerts(){
         return this.#buttonAllerts.click();
+    }
+
+    async clickNestedFrames(){
+        return this.#buttonNestedFrames.click();
+    }
+
+    async clickFrames(){
+        return this.#buttonFrames.click();
+    }
+
+    async clickWebTables(){
+        return this.#buttonWebTables.click();
+    }
+
+    async clickBrowserWindows(){
+        return this.#buttonBrowserWindows.click();
     }
 
     #getButtonByNameFromExpand(buttonName, expandName){
@@ -21,4 +45,4 @@ class AlertsFrameWindows extends BaseForm{
     }
 }
 
-module.exports = new AlertsFrameWindows();
+module.exports = new leftPanelForm();

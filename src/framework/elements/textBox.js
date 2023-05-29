@@ -9,7 +9,7 @@ class TextBox extends BaseElement{
     }
 
     async sendKeys(text){
-        Logger.logInfo(`Fill text ${text} into "${this.name}"`);
+        Logger.logInfo(`Fill text "${text}" into "${this.name}"`);
         const el = await browser.getDriver().findElement(this.locator);
         return el.sendKeys(text);
     }

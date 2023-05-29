@@ -25,6 +25,11 @@ class Browser{
         Logger.logInfo('Close browser');
         this.#driver.quit();
     }
+
+    async closeWindow(){
+        Logger.logInfo('Close window');
+        this.#driver.close();
+    }
     
     getDriver(){
         return this.#driver;
@@ -68,6 +73,22 @@ class Browser{
 
     async waitUntilAlertIsPresent(){
         this.#driver.wait(until.alertIsPresent);
+    }
+
+    async getElement(locator, name){
+        Logger.logInfo(`Getting element "${name}" with locator: ${locator}`);
+        await this.#driver.wait(until.elementLocated(locator));
+        return this.#driver.findElement(locator);
+    }
+
+    async switchToIframe(frameElement, name){
+        Logger.logInfo(`Switching to iframe "${name}"`);
+        await this.#driver.switchTo().frame(frameElement);
+    }
+
+    async switchToPage(){
+        Logger.logInfo('Switching to Page');
+        await this.#driver.switchTo().defaultContent();
     }
 }
 

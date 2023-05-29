@@ -10,7 +10,7 @@ class ComboBox extends BaseElement{
         super(locator, name);
     }
 
-    async selectItem(itemLocator, timeout = timeouts.timeoutSmall){
+    async clickItem(itemLocator, timeout = timeouts.timeoutSmall){
         Logger.logInfo(`Open popup "${this.name}"`);
         const comboBox = await browser.getDriver().findElement(this.locator);
         await comboBox.click();
@@ -20,14 +20,13 @@ class ComboBox extends BaseElement{
         return item.click();
     }
 
-    async selectItemByText(name){
+    async selectItemByVisibleText(name){
         Logger.logInfo(`Open popup "${this.name}"`);
         const comboBox = await browser.getDriver().findElement(this.locator);
         await comboBox.click();
         const select = new Select(comboBox);
         Logger.logInfo(`Select item ${name}`);
-        await select.selectByVisibleText(name);
-        return comboBox.click();
+        return select.selectByVisibleText(name);
     }
 }
 

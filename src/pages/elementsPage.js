@@ -1,12 +1,13 @@
 const {By} = require('selenium-webdriver');
 const BaseForm = require('../framework/forms/baseForm')
 const Label = require('../framework/elements/label');
+const Button = require('../framework/elements/button');
 const leftPanelForm = require('./forms/leftPanelForm');
 
-class AlertsFrameWindowsPage extends BaseForm{
+class ElementsPage extends BaseForm{
     
     constructor(){
-        super(new Label(By.xpath(`//*[@class="main-header" and text()="Alerts, Frame & Windows"]`), `Header label Alerts, Frame & Windows`), 'Alerts, Frame & Windows page');
+        super(new Label(By.xpath(`//*[@class="main-header" and text()="Elements"]`), 'Header label elements'), 'Elements page');
         this._leftPanelForm = leftPanelForm;
     }
 
@@ -15,4 +16,4 @@ class AlertsFrameWindowsPage extends BaseForm{
     }
 }
 
-module.exports = new AlertsFrameWindowsPage();
+module.exports = new ElementsPage();
