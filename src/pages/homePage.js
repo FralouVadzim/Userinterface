@@ -14,12 +14,18 @@ class HomePage extends BaseForm{
 
     #buttonElements = this.#getButtonByName(elementNames.buttonElements);
 
+    #buttonWidgets = this.#getButtonByName(elementNames.buttonWidgets);
+
     async clickAlertsFrameWindows(){
         return this.#buttonAlertsFrameWindows.click();
     }
 
     async clickElements(){
         return this.#buttonElements.click();
+    }
+
+    async clickWidgets(){
+        return this.#buttonWidgets.click();
     }
 
     #getButtonByName(name){

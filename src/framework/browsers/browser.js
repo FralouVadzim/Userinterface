@@ -23,12 +23,12 @@ class Browser{
         
     async close(){
         Logger.logInfo('Close browser');
-        this.#driver.quit();
+        return this.#driver.quit();
     }
 
     async closeWindow(){
         Logger.logInfo('Close window');
-        this.#driver.close();
+        return this.#driver.close();
     }
     
     getDriver(){

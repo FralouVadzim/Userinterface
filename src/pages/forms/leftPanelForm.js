@@ -20,6 +20,14 @@ class leftPanelForm extends BaseForm{
 
     #buttonBrowserWindows = this.#getButtonByNameFromExpand(elementNames.buttonBrowserWindows, elementNames.buttonAlertsFrameWindows);
 
+    #buttonLinks = this.#getButtonByNameFromExpand(elementNames.buttonLinks, elementNames.buttonElements);
+
+    #buttonElementsExpand = this.#getButtonExpandByName(elementNames.buttonElements);
+
+    #buttonSlider = this.#getButtonByNameFromExpand(elementNames.buttonSlider, elementNames.buttonWidgets);
+
+    #buttonProgressBar = this.#getButtonByNameFromExpand(elementNames.buttonProgressBar, elementNames.buttonWidgets);
+
     async clickAlerts(){
         return this.#buttonAllerts.click();
     }
@@ -40,8 +48,31 @@ class leftPanelForm extends BaseForm{
         return this.#buttonBrowserWindows.click();
     }
 
+    async clickElements(){
+        return this.#buttonElementsExpand.click();
+    }
+
+    async clickLinks(){
+        await this.#buttonLinks.waitUntilElementIsVisible();
+        return this.#buttonLinks.click();
+    }
+
+    async clickSlider(){
+        return this.#buttonSlider.click();
+    }
+
+    async clickProgressBar(){
+        const button = this.#buttonProgressBar;
+        await button.scrollIntoView()
+        return button.click();
+    }
+
     #getButtonByNameFromExpand(buttonName, expandName){
         return new Button(By.xpath(`//*[@class="header-text" and text()="${expandName}"]/ancestor::div[@class="element-group"]//*[text()="${buttonName}"]/ancestor::li`), `Button ${buttonName}`);
+    }
+
+    #getButtonExpandByName(expandName){
+        return new Button(By.xpath(`//*[text()="${expandName}"]/ancestor::div[@class="element-group"]`), `Button ${expandName}`);
     }
 }
 

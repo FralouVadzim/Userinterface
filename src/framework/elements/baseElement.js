@@ -31,7 +31,6 @@ class BaseElement{
         return res;
     }
 
-
     async isElementVisible(withWait = true, timeout = timeouts.timeoutSmall){
         Logger.logInfo(`Check that form '${this.name}' is visible`);
         let element;
@@ -97,11 +96,25 @@ class BaseElement{
         const el = await browser.getDriver().findElement(this.locator);
         return browser.getDriver().actions().move({origin:el}).perform();
     }
+    
+    async scrollIntoView(){
+        Logger.logInfo(`Scrolling into view element '${this.name}'`);
+        const el = await browser.getDriver().findElement(this.locator);
+        return browser.getDriver().executeScript('arguments[0].scrollIntoView();', el);
+    }
 
     async getElement(){
         Logger.logInfo(`Getting element "${this.name}" with locator: ${this.locator}`);
         await browser.getDriver().wait(until.elementLocated(this.locator));
         return browser.getDriver().findElement(this.locator);
+    }
+
+    async getAttribute(attributeName){
+        Logger.logInfo(`Gettig attribute ${attributeName} for element '${this.name}'`);
+        const el = await browser.getDriver().findElement(this.locator);
+        const value = await el.getAttribute(attributeName);
+        Logger.logInfo(`The value is: ${value}`);
+        return value;
     }
 }
 

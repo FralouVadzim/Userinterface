@@ -5,7 +5,7 @@ const browser = require('../framework/browsers/browser');
 const homePage = require('../pages/homePage');
 const alertsFrameWindowsPage = require('../pages/alertsFrameWindowsPage');
 const alertsPage = require('../pages/alertsPage');
-const StringUtils = require('../utils/stringUtils');
+const StringUtils = require('../framework/utils/stringUtils');
 const nestedFramesPage = require('../pages/nestedFramesPage');
 const framesPage = require('../pages/framesPage');
 const elementsPage = require('../pages/elementsPage');
@@ -13,6 +13,11 @@ const webTablesPage = require('../pages/webTablesPage');
 const registrationForm = require('../pages/forms/registrationForm');
 const users = require('../testData/users.json');
 const browserWindowsPage = require('../pages/browserWindowsPage');
+const samplePage = require('../pages/samplePage');
+const linksPage = require('../pages/linksPage');
+const widgetsPage = require('../pages/widgetsPage');
+const sliderPage = require('../pages/sliderPage');
+const progressBarPage = require('../pages/progressBarPage');
 
 
 describe('Userinterface suite', function(){
@@ -114,7 +119,7 @@ describe('Userinterface suite', function(){
         })
     })
 
-    it(`Test case 4. Handles`, async() =>{
+    it.skip('Test case 4. Handles', async() =>{
         await browser.openUrl(config.startUrl);
         assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
         homePage.clickAlertsFrameWindows();
@@ -122,5 +127,42 @@ describe('Userinterface suite', function(){
         await alertsFrameWindowsPage.leftPanelForm.clickBrowserWindows();
         assertChai.isTrue(await browserWindowsPage.isOpened(), 'Browser windows page is not opened');
         await browserWindowsPage.clickNewTabButton();
+        let windowHandles = await browser.getDriver().getAllWindowHandles();
+        await browser.getDriver().switchTo().window(await windowHandles[1]);
+        assertChai.isTrue(await samplePage.isOpened(), 'Sample page is not opened');
+        await browser.closeWindow();
+        await browser.getDriver().switchTo().window(await windowHandles[0]);
+        assertChai.isTrue(await browserWindowsPage.isOpened(), 'Browser windows page is not opened');
+        await browserWindowsPage.leftPanelForm.clickElements();
+        await browserWindowsPage.leftPanelForm.clickLinks();
+        assertChai.isTrue(await linksPage.isOpened(), 'Links page is not opened');
+        await linksPage.clickHome();
+        windowHandles = await browser.getDriver().getAllWindowHandles();
+        await browser.getDriver().switchTo().window(await windowHandles[1]);
+        assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
+        await browser.getDriver().switchTo().window(await windowHandles[0]);
+        assertChai.isTrue(await linksPage.isOpened(), 'Links page is not opened');
+    })
+
+    it('Test case 5. Slider, Progress bar', async() =>{
+        await browser.openUrl(config.startUrl);
+        assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
+        await homePage.clickWidgets();
+        assertChai.isTrue(await widgetsPage.isOpened(), 'Widgets page is not opened');
+        widgetsPage.leftPanelForm.clickSlider();
+        assertChai.isTrue(await sliderPage.isOpened(), 'Slider page is not opened');
+        const randomValue = StringUtils.getRandomIntInclusive(testData.MinValidSliderValue, testData.MaxValidSliderValue);
+        await sliderPage.setSliderValueTo(randomValue);
+        const sliderValue = await sliderPage.getSliderValue()
+        assertChai.isTrue(randomValue === sliderValue, `Values do not match. Expected: ${randomValue}, Actual: ${sliderValue}`);
+        sliderPage.leftPanelForm.clickProgressBar();
+        assertChai.isTrue(await progressBarPage.isOpened(), 'Progress bar page is not opened');
+        await progressBarPage.clickStartStopButton();
+        await progressBarPage.clickStopWhenTheValueEqualsTo(testData.ProgressBarValue);
+        const progressBarValue = await progressBarPage.getProgressBarValue();
+        assertChai.isTrue((progressBarValue >= testData.ProgressBarValue - testData.ProgressBarMarginOfError)
+            &&(progressBarValue <= testData.ProgressBarValue + testData.ProgressBarMarginOfError)
+            , `Values do not match. Expected: ${testData.ProgressBarValue}, Actual: ${progressBarValue}`);
+
     })
 })

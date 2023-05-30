@@ -5,5 +5,9 @@
     "buttonFrames": "Frames",
     "buttonElements": "Elements",
     "buttonWebTables": "Web Tables",
-    "buttonBrowserWindows": "Browser Windows"
+    "buttonBrowserWindows": "Browser Windows",
+    "buttonLinks": "Links",
+    "buttonWidgets": "Widgets",
+    "buttonSlider": "Slider",
+    "buttonProgressBar": "Progress Bar"
 }

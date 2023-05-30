@@ -6,5 +6,9 @@
     "textAfterPromptIntoAlert": "You entered ",
     "numberOfCharsForRandomAlertString": 5,
     "parentFrametext": "Parent frame",
-    "childIFrametext": "Child Iframe"
+    "childIFrametext": "Child Iframe",
+    "MinValidSliderValue": 0,
+    "MaxValidSliderValue": 100,
+    "ProgressBarValue": 28,
+    "ProgressBarMarginOfError": 2
 }
