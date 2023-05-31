@@ -26,7 +26,8 @@ class ComboBox extends BaseElement{
         await comboBox.click();
         const select = new Select(comboBox);
         Logger.logInfo(`Select item ${name}`);
-        return select.selectByVisibleText(name);
+        await select.selectByVisibleText(name);
+        return comboBox.click();
     }
 }
 

@@ -28,6 +28,10 @@ class leftPanelForm extends BaseForm{
 
     #buttonProgressBar = this.#getButtonByNameFromExpand(elementNames.buttonProgressBar, elementNames.buttonWidgets);
 
+    #buttonDatePicker = this.#getButtonByNameFromExpand(elementNames.buttonDatePicker, elementNames.buttonWidgets);
+
+    #buttonUploadAndDownload = this.#getButtonByNameFromExpand(elementNames.buttonUploadAndDownload, elementNames.buttonElements);
+
     async clickAlerts(){
         return this.#buttonAllerts.click();
     }
@@ -65,6 +69,14 @@ class leftPanelForm extends BaseForm{
         const button = this.#buttonProgressBar;
         await button.scrollIntoView()
         return button.click();
+    }
+
+    async clickUploadAndDonload(){
+        return this.#buttonUploadAndDownload.click();
+    }
+
+    async clickDatePicker(){
+        return this.#buttonDatePicker.click();
     }
 
     #getButtonByNameFromExpand(buttonName, expandName){

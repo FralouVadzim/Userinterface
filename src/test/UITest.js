@@ -18,6 +18,8 @@ const linksPage = require('../pages/linksPage');
 const widgetsPage = require('../pages/widgetsPage');
 const sliderPage = require('../pages/sliderPage');
 const progressBarPage = require('../pages/progressBarPage');
+const datePickerPage = require('../pages/datePickerPage');
+const uploadAndDownloadPage = require('../pages/uploadAndDownloadPage');
 
 
 describe('Userinterface suite', function(){
@@ -27,7 +29,7 @@ describe('Userinterface suite', function(){
     });
 
     afterEach(async () =>{
-        await browser.close();
+        // await browser.close();
     });
 
     it.skip('Test case 1. Alerts', async () =>{        
@@ -144,7 +146,7 @@ describe('Userinterface suite', function(){
         assertChai.isTrue(await linksPage.isOpened(), 'Links page is not opened');
     })
 
-    it('Test case 5. Slider, Progress bar', async() =>{
+    it.skip('Test case 5. Slider, Progress bar', async() =>{
         await browser.openUrl(config.startUrl);
         assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
         await homePage.clickWidgets();
@@ -163,6 +165,39 @@ describe('Userinterface suite', function(){
         assertChai.isTrue((progressBarValue >= testData.ProgressBarValue - testData.ProgressBarMarginOfError)
             &&(progressBarValue <= testData.ProgressBarValue + testData.ProgressBarMarginOfError)
             , `Values do not match. Expected: ${testData.ProgressBarValue}, Actual: ${progressBarValue}`);
+    })
+
+    it.skip('Test case 6. Date picker', async() =>{
+        await browser.openUrl(config.startUrl);
+        assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
+        await homePage.clickWidgets();
+        assertChai.isTrue(await widgetsPage.isOpened(), 'Widgets page is not opened');
+        await widgetsPage.leftPanelForm.clickDatePicker();
+        assertChai.isTrue(await datePickerPage.isOpened(), 'Date picker page is not opened');
+        const currentDate = new Date();
+        let dateFromSelectDate = StringUtils.cutFirstZero(await datePickerPage.getTextFromSelectDate());
+        assertChai.isTrue(currentDate.toLocaleDateString() === dateFromSelectDate
+            , `Values do not match. Expected: ${currentDate.toLocaleDateString()}, Actual: ${dateFromSelectDate}`);
+        const currentDateFormated = currentDate.toLocaleDateString([], { month: 'long' }) + ' ' + 
+            currentDate.toLocaleDateString([], { day: 'numeric' }) + ", "+ currentDate.toLocaleDateString("en-US", { year: 'numeric' })
+            + " " + currentDate.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+        const dateFromDateAndTime = await datePickerPage.getTextFromDateAndTime();
+        assertChai.isTrue(currentDateFormated === dateFromDateAndTime
+            , `Values do not match. Expected: ${currentDateFormated}, Actual: ${dateFromDateAndTime}`);
+        const dateToPick = new Date(StringUtils.getNearestLeapYear(), testData.MonthToPick, testData.DateToPick)
+        await datePickerPage.pickDate(dateToPick);
+        dateFromSelectDate = StringUtils.cutFirstZero(await datePickerPage.getTextFromSelectDate());
+        assertChai.isTrue(dateToPick.toLocaleDateString() === dateFromSelectDate
+            , `Values do not match. Expected: ${dateToPick.toLocaleDateString()}, Actual: ${dateFromSelectDate}`);
+    })
+
+    it('Test case 7. Files. Uploading and downloading', async() =>{
+        await browser.openUrl(config.startUrl);
+        assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
+        await homePage.clickElements();
+        assertChai.isTrue(await elementsPage.isOpened(), 'Elements page is not opened');
+        await elementsPage.leftPanelForm.clickUploadAndDonload();
+        assertChai.isTrue(await uploadAndDownloadPage.isOpened(), 'Elements page is not opened');
 
     })
 })

@@ -20,6 +20,22 @@ class StringUtils{
         max = Math.floor(max);
         return Math.floor(Math.random() * (max - min + 1) + min);
     }
+
+    static cutFirstZero(string){
+        return string.startsWith('0') ? string.slice(1) : string;
+    };
+
+    static getNearestLeapYear(){
+        const date = new Date();
+        for (let i = date.getFullYear(); i < date.getFullYear() + 5; i++){
+            if(date.getMonth > 1 && i == date.getFullYear()){
+                continue;
+            }
+            if ((0 == i % 4) && (0 != i % 100) || (0 == i % 400)) {
+                return i;
+            }
+        }
+    }
 }
 
 module.exports = StringUtils;

@@ -9,5 +9,7 @@
     "buttonLinks": "Links",
     "buttonWidgets": "Widgets",
     "buttonSlider": "Slider",
-    "buttonProgressBar": "Progress Bar"
+    "buttonProgressBar": "Progress Bar",
+    "buttonDatePicker": "Date Picker",
+    "buttonUploadAndDownload": "Upload and Download"
 }

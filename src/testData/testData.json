@@ -10,5 +10,7 @@
     "MinValidSliderValue": 0,
     "MaxValidSliderValue": 100,
     "ProgressBarValue": 28,
-    "ProgressBarMarginOfError": 2
+    "ProgressBarMarginOfError": 2,
+    "MonthToPick": 1,
+    "DateToPick": 29
 }
