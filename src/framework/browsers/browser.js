@@ -5,14 +5,30 @@ const chrome = require('selenium-webdriver/chrome');
 const firefox = require('selenium-webdriver/firefox');
 const config = require('../../config/config.json');
 const Logger = require('../logging/logger');
+const browserConfig = require('../configuration/browserConfig.json');
 
 class Browser{
     #driver;
     
     async init(){
-        Logger.logInfo('Driver init');        
-        this.#driver = await new Builder().forBrowser(config.browser)
-            .setChromeOptions(new chrome.Options().addArguments(config.capabilities.args))
+        Logger.logInfo('Driver init');
+        let chromeOptions = new chrome.Options();
+        let firefoxOptions = new firefox.Options();
+        chromeOptions.addArguments(browserConfig.capabilities['goog:chromeOptions'].args);
+        for(let pref of browserConfig.capabilities['goog:chromeOptions'].userPreferences){
+            chromeOptions.setUserPreferences(pref);
+        }
+        for(let option of browserConfig.capabilities['moz:firefoxOptions'].args){
+            firefoxOptions.addArguments(option)
+        }
+        for(let pref of browserConfig.capabilities['moz:firefoxOptions'].userPreferences){
+            for(let key in pref){
+                firefoxOptions.setPreference(key, pref[key]);
+            }
+        }        
+        this.#driver = await new Builder().forBrowser(browserConfig.capabilities.browserName)
+            .setChromeOptions(chromeOptions)
+            .setFirefoxOptions(firefoxOptions)
             .build();
     }
 

@@ -44,7 +44,6 @@ class DatePickerPage extends BaseForm{
         await this.#textBoxSelectDate.click();
         await this.#labelDatePickerContainer.waitUntilElementIsVisible();
         await this.#comboBoxYear.selectItemByVisibleText(date.getFullYear());
-        console.log(date.toLocaleDateString([], { month: 'long' }));
         await this.#comboBoxMonth.selectItemByVisibleText(date.toLocaleDateString([], { month: 'long' }));
         return this.#clickDate(date);
     }

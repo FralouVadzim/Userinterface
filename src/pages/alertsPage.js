@@ -11,6 +11,10 @@ class AlertsPage extends BaseForm{
         this._leftPanelForm = leftPanelForm;
     }
 
+    get leftPanelForm(){
+        return this._leftPanelForm;
+    }
+
     #buttonShowSimpleAlert = new Button(By.id('alertButton'), 'Button show simple alert');
 
     #buttonShowAlertWithConfirm = new Button(By.id('confirmButton'), 'Button show alert with confirm');
@@ -20,11 +24,7 @@ class AlertsPage extends BaseForm{
     #labelAlertConfirmationResult = new Label(By.id('confirmResult'), 'Label alert confirmation result');
 
     #labelAlertPromptResult = new Label(By.id('promptResult'), 'Label alert prompt result');
-
-    get leftPanelForm(){
-        return this._leftPanelForm;
-    }
-
+    
     async clickShowSimpleAlertButton(){
         return this.#buttonShowSimpleAlert.click();
     }

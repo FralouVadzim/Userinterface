@@ -3,8 +3,6 @@ const BaseForm = require('../framework/forms/baseForm')
 const Label = require('../framework/elements/label');
 const Button = require('../framework/elements/button');
 const leftPanelForm = require('./forms/leftPanelForm');
-const KeyBoardUtils = require('../framework/utils/keyboardUtils');
-const browser = require('../framework/browsers/browser');
 const StringUtils = require('../framework/utils/stringUtils');
 
 class ProgressBar extends BaseForm{

@@ -12,8 +12,7 @@ class WidgetsPage extends BaseForm{
 
     get leftPanelForm(){
         return this._leftPanelForm;
-    }
-    
+    }    
 }
 
 module.exports = new WidgetsPage();

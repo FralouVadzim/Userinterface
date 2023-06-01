@@ -50,8 +50,7 @@ class SliderPage extends BaseForm{
     async getSliderValue(){
         const value = await this.#buttonSlider.getAttribute(this.#attributeValue)
         return Number(value);
-    }
-    
+    }    
 }
 
 module.exports = new SliderPage();

@@ -11,15 +11,15 @@ class WebTablesPage extends BaseForm{
         this._leftPanelForm = leftPanelForm;
     }
 
+    get leftPanelForm(){
+        return this._leftPanelForm;
+    }
+
     #addButton = new Button(By.id('addNewRecordButton'), "Add button");
 
     #gridLabel = new Label(By.className('rt-tbody'), 'Grid label');
 
     #recordLocator = '//*[@title="Delete"]/ancestor::div[@class="rt-tr-group"]';
-
-    get leftPanelForm(){
-        return this._leftPanelForm;
-    }
 
     async clickAddButton(){
         return this.#addButton.click();

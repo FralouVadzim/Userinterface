@@ -37,8 +37,7 @@ class RegistrationForm extends BaseForm{
 
     async clickSubmitButton(){
         return this.#buttonSubmit.click();
-    }
-    
+    }    
 }
 
 module.exports = new RegistrationForm();

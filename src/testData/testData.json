@@ -12,5 +12,6 @@
     "ProgressBarValue": 28,
     "ProgressBarMarginOfError": 2,
     "MonthToPick": 1,
-    "DateToPick": 29
+    "DateToPick": 29,
+    "fileName": "sampleFile.jpeg"
 }

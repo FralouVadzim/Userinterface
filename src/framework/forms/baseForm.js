@@ -1,7 +1,8 @@
-const {By, until} = require('selenium-webdriver');
+const {By} = require('selenium-webdriver');
 const Logger = require('../logging/logger');
 const browser = require('../browsers/browser');
 const timeouts = require('../configuration/timeouts.json');
+const Waits = require('../utils/waits');
 
 class BaseForm{
     constructor(uniqueElement, name){
@@ -24,6 +25,13 @@ class BaseForm{
             await this.uniqueElement.waitUntilElementIsBecomeStaleOrNotLocated();
         }
         return this.uniqueElement.isPresent();
+    }
+
+    waitUntilFileExists(path, timeout=timeouts.timeoutMedium){
+        Logger.logInfo(`Check if file '${path}' exists`);
+        const result = Waits.checkIfFileExists(path, timeout);
+        Logger.logInfo(`Result is ${result}`);
+        return result;
     }
 
     async _getListOfElementNames(locator){
