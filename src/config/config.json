@@ -1,0 +1,7 @@
+{
+    "startUrl": "https://userinyerface.com/",
+    "numberOfRandomCharsForPass": "8",
+    "numberOfRandomCharsForEmail": "5",
+    "numberOfRandomCharsForDomain": "4",
+    "uploadFilePath": "\\Resources\\download.png"
+}

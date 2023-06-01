@@ -1,0 +1,20 @@
+{
+    "capabilities": {
+          "browserName": "chrome",
+          "moz:firefoxOptions": {
+            "args": ["--width=1920","--height=1080"],
+            "userPreferences": [                
+                {"browser.download.folderList": 2},
+                {"browser.download.manager.showWhenStarting": false},
+                {"browser.download.dir": "C:\\Downloads\\"},
+                {"browser.helperApps.neverAsk.saveToDisk": "application/x-gzip"}
+            ]
+          },
+          "goog:chromeOptions": {
+            "args": ["--start-maximized"],
+            "userPreferences": [
+                {"download.default_directory": "C:\\Downloads\\"}
+            ]
+          }
+    }
+}
