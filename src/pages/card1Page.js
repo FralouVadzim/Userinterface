@@ -4,6 +4,7 @@ const Label = require('../framework/elements/label');
 const Button = require('../framework/elements/button');
 const TextBox = require('../framework/elements/textBox');
 const ComboBox = require('../framework/elements/comboBox');
+const CheckBox = require('../framework/elements/checkBox');
 const StringUtils = require('../framework/utils/stringUtils');
 const config = require('../config/config.json');
 
@@ -21,11 +22,30 @@ class Card1Page extends BaseForm{
     
     #comboboxDomainName = new ComboBox(By.className('dropdown__field'), 'Domain name comboBox');
 
-    #domainNamesLocator = (By.className('dropdown__list-item'))
+    #checkBoxTerms = new CheckBox(By.className('checkbox__label'), "CheckBox terms and conditions");
+
+    #buttonNextPage = new Button(By.xpath('//*[@class="button--secondary"]'), "Button next");
+
+    #domainNamesXpath = '//div[@class="dropdown__list-item"]';
+
+    #email = StringUtils.generateRandomCapitalString(config.numberOfRandomCharsForEmail) + StringUtils.getRandomIntInclusive(0,9);
+
+    #password = this.#email + StringUtils.generateRandomString(config.numberOfRandomCharsForPass);
     
+    async clickNext(){
+        return this.#buttonNextPage.click();
+    }
+    async acceptTerms(){
+        return this.#checkBoxTerms.check();
+    }
 
     async clickToDomainName(){
         return this.#comboboxDomainName.click();
+    }
+
+    async selectDomainName(){
+        let domains = await this._getListOfElementNames(By.xpath(this.#domainNamesXpath))
+        return this.#comboboxDomainName.clickItem(By.xpath(`${this.#domainNamesXpath}[${StringUtils.getRandomIntInclusive(1, domains.length)}]`))
     }
 
     async clickToPassword(){
@@ -33,10 +53,9 @@ class Card1Page extends BaseForm{
     }
 
     async typePassword(){
-        let textbox = this.#textboxPassword
+        const textbox = this.#textboxPassword;
         await textbox.clear();
-        const password = StringUtils.generateRandomString(config.numberOfRandomCharsForPass);
-        return textbox.sendKeys(password);
+        return textbox.sendKeys(this.#password);
     }
 
     async clickToEmail(){
@@ -44,10 +63,9 @@ class Card1Page extends BaseForm{
     }
 
     async typeEmail(){
-        let textbox = this.#textboxEmail
+        let textbox = this.#textboxEmail;
         await textbox.clear();
-        const password = StringUtils.generateRandomString(config.numberOfRandomCharsForEmail);
-        return textbox.sendKeys(password);
+        return textbox.sendKeys(this.#email);
     }
 
     async clickToDomain(){
@@ -60,13 +78,6 @@ class Card1Page extends BaseForm{
         const password = StringUtils.generateRandomString(config.numberOfRandomCharsForDomain);
         return textbox.sendKeys(password);
     }
-
-    async #getRandomDomainName(){
-        let domains = await this._getListOfElementNames(this.#domainNamesLocator);
-        await domains.shift();
-        return domains[StringUtils.getRandomIntInclusive(0, domains.length)];
-    }
-
 }
 
 module.exports = new Card1Page();

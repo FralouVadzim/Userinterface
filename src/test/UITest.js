@@ -4,6 +4,9 @@ const testData = require('../testData/testData.json');
 const browser = require('../framework/browsers/browser');
 const homePage = require('../pages/homePage');
 const card1Page = require('../pages/card1Page');
+const card2Page = require('../pages/card2Page');
+const card3Page = require('../pages/card3Page');
+const UploadFile = require('../utils/uploadFile');
 
 
 describe('Userinterface suite', function(){
@@ -13,7 +16,7 @@ describe('Userinterface suite', function(){
     });
 
     afterEach(async () =>{
-        await browser.close();
+        // await browser.close();
     });
 
     it('Test case 1', async () =>{
@@ -27,5 +30,15 @@ describe('Userinterface suite', function(){
         await card1Page.typeEmail();
         await card1Page.clickToDomain();
         await card1Page.typeDomain();
+        await card1Page.selectDomainName();
+        await card1Page.acceptTerms();
+        await card1Page.clickNext();
+        assertChai.isTrue(await card2Page.isOpened(), 'Card 2 page is not opened');
+        await card2Page.clickUpload();
+        await UploadFile.uploadImage();
+        await card2Page.clickUnselectAll();
+        await card2Page.selectInterests(testData.numberOfInterests);
+        await card2Page.clickNext();
+        assertChai.isTrue(await card3Page.isOpened(), 'Card 3 page is not opened');
     })
 })
