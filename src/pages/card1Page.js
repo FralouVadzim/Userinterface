@@ -7,6 +7,7 @@ const ComboBox = require('../framework/elements/comboBox');
 const CheckBox = require('../framework/elements/checkBox');
 const StringUtils = require('../framework/utils/stringUtils');
 const config = require('../config/config.json');
+const timeouts = require('../framework/configuration/timeouts.json')
 
 class Card1Page extends BaseForm{
 
@@ -31,6 +32,42 @@ class Card1Page extends BaseForm{
     #email = StringUtils.generateRandomCapitalString(config.numberOfRandomCharsForEmail) + StringUtils.getRandomIntInclusive(0,9);
 
     #password = this.#email + StringUtils.generateRandomString(config.numberOfRandomCharsForPass);
+
+    #buttonHideHelpFrom = new Button(By.xpath('//div[@class="align__cell u-right"]//button'), 'Hide help form button');
+
+    #labelHelpFormTitle = new Label(By.className('help-form__title'), 'Help form title label');
+
+    #buttonAcceptCookies = new Button(By.xpath('//button[contains(text(),"Not")]'), 'Accept cookies button');
+
+    #labelTimer = new Label(By.className('timer'), 'Timer label');
+
+    async getTimerText(){
+        return this.#labelTimer.getText();
+    }
+
+    async isCookiesFormVisible(){
+        return this.#buttonAcceptCookies.isElementVisible(false);
+    }
+
+    async acceptCookies(){
+        await this.#buttonAcceptCookies.waitUntilElementIsVisible();
+        await this.#buttonAcceptCookies.click();
+        return this.#buttonAcceptCookies.waitUntilElementIsBecomeStaleOrNotLocated();
+    }
+
+    async isHelpFormVisible(){
+        await this.#labelHelpFormTitle.waitUntilElementIsNotVisible(timeouts.timeoutMedium);
+        return this.#labelHelpFormTitle.isElementVisible(false);
+    }
+
+    async isHelpFormVisible(){
+        await this.#labelHelpFormTitle.waitUntilElementIsNotVisible(timeouts.timeoutMedium);
+        return this.#labelHelpFormTitle.isElementVisible(false);
+    }
+
+    async clickHideHelpForm(){
+        return this.#buttonHideHelpFrom.click();
+    }
     
     async clickNext(){
         return this.#buttonNextPage.click();

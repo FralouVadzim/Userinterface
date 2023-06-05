@@ -2,11 +2,8 @@ const {By} = require('selenium-webdriver');
 const BaseForm = require('../framework/forms/baseForm')
 const Label = require('../framework/elements/label');
 const Button = require('../framework/elements/button');
-const TextBox = require('../framework/elements/textBox');
-const ComboBox = require('../framework/elements/comboBox');
 const CheckBox = require('../framework/elements/checkBox');
 const StringUtils = require('../framework/utils/stringUtils');
-const config = require('../config/config.json');
 
 class Card2Page extends BaseForm{
 

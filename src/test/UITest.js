@@ -16,7 +16,7 @@ describe('Userinterface suite', function(){
     });
 
     afterEach(async () =>{
-        // await browser.close();
+        await browser.close();
     });
 
     it('Test case 1', async () =>{
@@ -40,5 +40,32 @@ describe('Userinterface suite', function(){
         await card2Page.selectInterests(testData.numberOfInterests);
         await card2Page.clickNext();
         assertChai.isTrue(await card3Page.isOpened(), 'Card 3 page is not opened');
+    })
+
+    it('Test case 2', async () =>{
+        await browser.openUrl(config.startUrl);
+        assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
+        await homePage.clickNextPageButton();
+        assertChai.isTrue(await card1Page.isOpened(), 'Card 1 page is not opened');
+        await card1Page.clickHideHelpForm();
+        assertChai.isFalse(await card1Page.isHelpFormVisible(), 'Help form is not hidden');
+    })
+
+    it('Test case 3', async () =>{
+        await browser.openUrl(config.startUrl);
+        assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
+        await homePage.clickNextPageButton();
+        assertChai.isTrue(await card1Page.isOpened(), 'Card 1 page is not opened');
+        await card1Page.acceptCookies();
+        assertChai.isFalse(await card1Page.isCookiesFormVisible(), 'Cookies form is visible');
+    })
+
+    it('Test case 4', async () =>{
+        await browser.openUrl(config.startUrl);
+        assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
+        await homePage.clickNextPageButton();
+        assertChai.isTrue(await card1Page.isOpened(), 'Card 1 page is not opened');
+        const timerValue = await card1Page.getTimerText();
+        assertChai.isTrue(timerValue === testData.timersTime, `Timer values don't match.\nExpected:${testData.timersTime}\nActual:${timerValue}`);
     })
 })

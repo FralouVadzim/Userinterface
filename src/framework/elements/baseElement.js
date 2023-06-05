@@ -46,21 +46,24 @@ class BaseElement{
             return result;
 
         }catch(err){
-            result = false;
-            Logger.logInfo(`Couldn't find element with locator ${this.locator}. Error ${err.name}. Message: ${err.message}`);
-            return result;
+            if(err.name === 'NoSuchElementError'){
+                result = false;
+                Logger.logInfo(`Result is ${result}`);
+                return result;
+            }
+            throw new Error(`Error ${err.name}. Message: ${err.message}`);   
         }
     }
 
     async waitUntilElementIsVisible(timeout = timeouts.timeoutSmall){           
-        await this.isElementLocatedAfterWait();
+        await this.isElementLocatedAfterWait(timeout);
         Logger.logInfo(`Wait until element '${this.name}' is visible`); 
         const el = await browser.getDriver().findElement(this.locator);
         return browser.getDriver().wait(until.elementIsVisible(el), timeout);
     }
 
     async waitUntilElementIsBecomeStaleOrNotLocated(timeout = timeouts.timeoutSmall){
-        Logger.logInfo(`Wait until element '${this.name}' becomes stale`);
+        Logger.logInfo(`Wait until element '${this.name}' becomes stale or not located`);
         try{
             return browser.getDriver().wait(until.stalenessOf(await browser.getDriver().findElement(this.locator)), timeout);
         }catch(err){
@@ -72,11 +75,17 @@ class BaseElement{
         }
     }
 
-    async waitUntilElementIsEnabled(timeout = timeouts.timeoutSmall){           
+    async waitUntilElementIsEnabled(timeout = timeouts.timeoutSmall){
         await this.isElementLocatedAfterWait();
         Logger.logInfo(`Wait until element '${this.name}' is enabled`); 
         const el = await browser.getDriver().findElement(this.locator);
         return browser.getDriver().wait(until.elementIsEnabled(el), timeout);
+    }
+
+    async waitUntilElementIsNotVisible(timeout = timeouts.timeoutSmall){
+        Logger.logInfo(`Wait until element '${this.name}' is not visible`); 
+        const el = await browser.getDriver().findElement(this.locator);
+        return browser.getDriver().wait(until.elementIsNotVisible(el), timeout);
     }
 
     async click(){
