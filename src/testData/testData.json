@@ -1,0 +1,17 @@
+{
+    "alertText1": "You clicked a button",
+    "alertText2": "Do you confirm action?",
+    "alertText3": "Please enter your name",
+    "textAfterAlertConfirmation": "You selected Ok",
+    "textAfterPromptIntoAlert": "You entered ",
+    "numberOfCharsForRandomAlertString": 5,
+    "parentFrametext": "Parent frame",
+    "childIFrametext": "Child Iframe",
+    "MinValidSliderValue": 0,
+    "MaxValidSliderValue": 100,
+    "ProgressBarValue": 28,
+    "ProgressBarMarginOfError": 2,
+    "MonthToPick": 1,
+    "DateToPick": 29,
+    "fileName": "sampleFile.jpeg"
+}
