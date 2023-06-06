@@ -15,21 +15,23 @@ class FramesPage extends BaseForm{
         return this._leftPanelForm;
     }
 
-    #frame1Locator = (By.id('frame1'));
+    #frame1Id = 'frame1';
 
-    #frame2Locator = (By.id('frame2'));
+    #frame2Id = 'frame2';
+
+    #labelFrameBody = new Label(By.css('body'), 'Body');
+
 
     async getTextFromFrame1(){
-        await browser.switchToIframe(browser.getElement((this.#frame1Locator), 'Frame 1'), 'Frame 1"');
-        const element = await browser.getElement((By.css('body')), 'Body');
-        const textToCompare = await element.getText();
-        await browser.switchToPage();
-        return textToCompare;
+        return this.#swithToFrameAndGetTextFromLabel(this.#frame1Id, this.#labelFrameBody);
     }
 
     async getTextFromFrame2(){
-        await browser.switchToIframe(browser.getElement((this.#frame2Locator), 'Frame 2'), 'Frame 2"');
-        const element = await browser.getElement((By.css('body')), 'Body');
+        return this.#swithToFrameAndGetTextFromLabel(this.#frame2Id, this.#labelFrameBody);
+    }
+
+    async #swithToFrameAndGetTextFromLabel(frameAttribute, element){
+        await browser.switchToIframe(frameAttribute);
         const textToCompare = await element.getText();
         await browser.switchToPage();
         return textToCompare;

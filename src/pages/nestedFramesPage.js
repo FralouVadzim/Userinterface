@@ -15,23 +15,23 @@ class NestedFramesPage extends BaseForm{
         return this._leftPanelForm;
     }
 
-    #parentFrameLocator = (By.id('frame1'));
+    #labelFrameBody = new Label(By.css('body'), 'Body');
 
-    #childFrameLocator = (By.xpath('//iframe[@srcdoc="<p>Child Iframe</p>"]'));
+    #parentFrameId = 'frame1';
+
+    #childFrameIndex = 0;
 
     async getTextFromParentFrame(){
-        await browser.switchToIframe(browser.getElement((this.#parentFrameLocator), "Parent frame"), "Parent frame");
-        const element = await browser.getElement((By.css('body')), 'Body');
-        const textToCompare = await element.getText();
+        await browser.switchToIframe(this.#parentFrameId);
+        const textToCompare = await this.#labelFrameBody.getText();
         await browser.switchToPage();
         return textToCompare;
     }
 
     async getTextFromChildFrame(){
-        await browser.switchToIframe(browser.getElement((this.#parentFrameLocator), "Parent frame"), "Parent frame");
-        await browser.switchToIframe(browser.getElement((this.#childFrameLocator), "Child frame"), "Child frame");
-        const element = await browser.getElement((By.css('body')), 'Body');
-        const textToCompare = await element.getText();
+        await browser.switchToIframe(this.#parentFrameId);
+        await browser.switchToIframe(this.#childFrameIndex);
+        const textToCompare = await this.#labelFrameBody.getText();
         await browser.switchToPage();
         return textToCompare;
     }

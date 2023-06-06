@@ -29,7 +29,7 @@ class HomePage extends BaseForm{
     }
 
     #getButtonByName(name){
-        return new Button(By.xpath(`//*[text()="${name}"]/ancestor::div[@class="card mt-4 top-card"]`), `Button ${name}`);
+        return new Button(By.xpath(`//*[text()="${name}"]/ancestor::div[@class="card-body"]`), `Button ${name}`);
     }
 }
 

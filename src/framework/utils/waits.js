@@ -1,6 +1,10 @@
 const fs = require("fs");
+const timeouts = require('../configuration/timeouts.json');
+const Logger = require('../logging/logger');
 
 class Waits{
+
+    static #sleepTimeout = 50;
 
     static sleep(milliseconds) {
         const date = Date.now();
@@ -10,7 +14,8 @@ class Waits{
         } while (currentDate - date < milliseconds);
       }
 
-    static checkIfFileExists(path, timeout){        
+    static checkIfFileExists(path, timeout=timeouts.timeoutMedium){    
+        Logger.logInfo(`Check if file '${path}' exists`);    
         let result = false;
         if(timeout){
             const date = new Date();
@@ -20,12 +25,13 @@ class Waits{
                     result = true;
                     break;
                 }
-                this.sleep(50);
+                this.sleep(this.#sleepTimeout);
                 currentDate = new Date();
             }
         }else{
             result = fs.existsSync(path);
-        }        
+        }
+        Logger.logInfo(`Result is ${result}`);
         return result;
     }
 }

@@ -20,6 +20,7 @@ const sliderPage = require('../pages/sliderPage');
 const progressBarPage = require('../pages/progressBarPage');
 const datePickerPage = require('../pages/datePickerPage');
 const uploadAndDownloadPage = require('../pages/uploadAndDownloadPage');
+const Waits = require('../framework/utils/waits');
 
 
 describe('Userinterface suite', function(){
@@ -191,7 +192,7 @@ describe('Userinterface suite', function(){
             , `Values do not match. Expected: ${dateToPick.toLocaleDateString()}, Actual: ${dateFromSelectDate}`);
     })
 
-    it.only('Test case 7. Files. Uploading and downloading', async() =>{
+    it('Test case 7. Files. Uploading and downloading', async() =>{
         await browser.openUrl(config.startUrl);
         assertChai.isTrue(await homePage.isOpened(), 'Home page is not opened');
         await homePage.clickElements();
@@ -199,7 +200,7 @@ describe('Userinterface suite', function(){
         await elementsPage.leftPanelForm.clickUploadAndDonload();
         assertChai.isTrue(await uploadAndDownloadPage.isOpened(), 'Upload and Download page is not opened');
         await uploadAndDownloadPage.clickDownload();
-        assertChai.isTrue(uploadAndDownloadPage.waitUntilFileExists(config.downloadDir + testData.fileName), 'File is not downloaded');
+        assertChai.isTrue(Waits.checkIfFileExists(config.downloadDir + testData.fileName), 'File is not downloaded');
         await uploadAndDownloadPage.uploadFile(config.downloadDir + testData.fileName);
         const uploadedFilePath = await uploadAndDownloadPage.getUploadedFilePath();
         assertChai.isTrue(uploadedFilePath.includes(testData.fileName), `Path ${uploadedFilePath } doesn't include ${testData.fileName}`);

@@ -103,11 +103,11 @@ class BaseElement{
         return browser.getDriver().executeScript('arguments[0].scrollIntoView();', el);
     }
 
-    async getElement(){
-        Logger.logInfo(`Getting element "${this.name}" with locator: ${this.locator}`);
-        await browser.getDriver().wait(until.elementLocated(this.locator));
-        return browser.getDriver().findElement(this.locator);
-    }
+    // async getElement(){
+    //     Logger.logInfo(`Getting element "${this.name}" with locator: ${this.locator}`);
+    //     await browser.getDriver().wait(until.elementLocated(this.locator));
+    //     return browser.getDriver().findElement(this.locator);
+    // }
 
     async getAttribute(attributeName){
         Logger.logInfo(`Gettig attribute ${attributeName} for element '${this.name}'`);

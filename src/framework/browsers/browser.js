@@ -1,35 +1,15 @@
 require('chromedriver');
 require('geckodriver');
-const {Builder,until} = require('selenium-webdriver');
-const chrome = require('selenium-webdriver/chrome');
-const firefox = require('selenium-webdriver/firefox');
-const config = require('../../config/config.json');
+const {until} = require('selenium-webdriver');
 const Logger = require('../logging/logger');
-const browserConfig = require('../configuration/browserConfig.json');
+const browserFactory = require('./browserFactory');
+const config = require('../../config/config.json')
 
 class Browser{
     #driver;
     
     async init(){
-        Logger.logInfo('Driver init');
-        let chromeOptions = new chrome.Options();
-        let firefoxOptions = new firefox.Options();
-        chromeOptions.addArguments(browserConfig.capabilities['goog:chromeOptions'].args);
-        for(let pref of browserConfig.capabilities['goog:chromeOptions'].userPreferences){
-            chromeOptions.setUserPreferences(pref);
-        }
-        for(let option of browserConfig.capabilities['moz:firefoxOptions'].args){
-            firefoxOptions.addArguments(option)
-        }
-        for(let pref of browserConfig.capabilities['moz:firefoxOptions'].userPreferences){
-            for(let key in pref){
-                firefoxOptions.setPreference(key, pref[key]);
-            }
-        }        
-        this.#driver = await new Builder().forBrowser(browserConfig.capabilities.browserName)
-            .setChromeOptions(chromeOptions)
-            .setFirefoxOptions(firefoxOptions)
-            .build();
+        this.#driver = await browserFactory.getBrowser();
     }
 
     async openUrl(url){
@@ -91,15 +71,15 @@ class Browser{
         this.#driver.wait(until.alertIsPresent);
     }
 
-    async getElement(locator, name){
-        Logger.logInfo(`Getting element "${name}" with locator: ${locator}`);
-        await this.#driver.wait(until.elementLocated(locator));
-        return this.#driver.findElement(locator);
-    }
+    // async getElement(locator, name){
+    //     Logger.logInfo(`Getting element "${name}" with locator: ${locator}`);
+    //     await this.#driver.wait(until.elementLocated(locator));
+    //     return this.#driver.findElement(locator);
+    // }
 
-    async switchToIframe(frameElement, name){
-        Logger.logInfo(`Switching to iframe "${name}"`);
-        await this.#driver.switchTo().frame(frameElement);
+    async switchToIframe(attribute){
+        Logger.logInfo(`Switching to iframe with attribute "${attribute}"`);
+        await this.#driver.switchTo().frame(attribute);
     }
 
     async switchToPage(){
