@@ -1,0 +1,28 @@
+{
+  "type": "module",
+  "name": "userinterface",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "devDependencies": {
+    "mocha": "^10.2.0"
+  },
+  "scripts": {
+    "test": "mocha ./src/test --recursive --timeout 120000"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/FralouVadzim/Userinterface.git"
+  },
+  "author": "v2.frolov",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/FralouVadzim/Userinterface/issues"
+  },
+  "homepage": "https://github.com/FralouVadzim/Userinterface#readme",
+  "dependencies": {
+    "axios": "^1.4.0",
+    "chai": "^4.3.7",
+    "log4js": "^6.9.1"
+  }
+}

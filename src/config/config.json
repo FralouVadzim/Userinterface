@@ -1,0 +1,8 @@
+{
+    "baseUrl": "https://jsonplaceholder.typicode.com",
+    "routePosts": "/posts/",
+    "routeUsers": "/users/",
+    "NumberOfCharsForBodyForRequest4": 8,
+    "NumberOfCharsForTitleForRequest4": 5
+    
+}
