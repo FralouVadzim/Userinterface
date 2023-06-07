@@ -48,6 +48,7 @@ describe('Userinterface suite', function(){
         await homePage.clickNextPageButton();
         assertChai.isTrue(await card1Page.isOpened(), 'Card 1 page is not opened');
         await card1Page.clickHideHelpForm();
+        await card1Page.waitUntilHelpFormIsNotVisible();
         assertChai.isFalse(await card1Page.isHelpFormVisible(), 'Help form is not hidden');
     })
 
@@ -66,6 +67,6 @@ describe('Userinterface suite', function(){
         await homePage.clickNextPageButton();
         assertChai.isTrue(await card1Page.isOpened(), 'Card 1 page is not opened');
         const timerValue = await card1Page.getTimerText();
-        assertChai.isTrue(timerValue === testData.timersTime, `Timer values don't match.\nExpected:${testData.timersTime}\nActual:${timerValue}`);
+        assertChai.equal(timerValue, testData.timersTime, `Timer values don't match.\nExpected:${testData.timersTime}\nActual:${timerValue}`);
     })
 })

@@ -3,5 +3,5 @@
     "numberOfRandomCharsForPass": "5",
     "numberOfRandomCharsForEmail": "5",
     "numberOfRandomCharsForDomain": "4",
-    "uploadFilePath": "\\testData\\image.jpeg"
+    "uploadFilePartialPath": "\\testData\\image.jpeg"
 }

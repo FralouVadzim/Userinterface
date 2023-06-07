@@ -25,7 +25,7 @@ class CheckBox extends BaseElement{
             return el.click();
         }else{
             Logger.logInfo(`"${this.name}" is already unchecked`);
-        }
+        };
     }
 
     async isChecked(){

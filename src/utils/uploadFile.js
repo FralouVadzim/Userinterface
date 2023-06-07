@@ -5,7 +5,7 @@ const config = require('../config/config.json');
 class UploadFile{
 
     static async uploadImage(){
-        const filePathpath = path.join(path.dirname(__dirname), config.uploadFilePath);
+        const filePathpath = path.join(path.dirname(__dirname), config.uploadFilePartialPath);
         await clipboard.setContent(filePathpath)
         await keyboard.pressKey(Key.LeftControl, Key.V);
         await keyboard.releaseKey(Key.LeftControl, Key.V);

@@ -41,12 +41,14 @@ class Card1Page extends BaseForm{
 
     #labelTimer = new Label(By.className('timer'), 'Timer label');
 
+    #labelDomainNames =  new Label(By.className('dropdown__list'), 'Domain names label');
+
     async getTimerText(){
         return this.#labelTimer.getText();
     }
 
     async isCookiesFormVisible(){
-        return this.#buttonAcceptCookies.isElementVisible(false);
+        return this.#buttonAcceptCookies.isPresent(false);
     }
 
     async acceptCookies(){
@@ -56,13 +58,11 @@ class Card1Page extends BaseForm{
     }
 
     async isHelpFormVisible(){
-        await this.#labelHelpFormTitle.waitUntilElementIsNotVisible(timeouts.timeoutMedium);
         return this.#labelHelpFormTitle.isElementVisible(false);
     }
 
-    async isHelpFormVisible(){
-        await this.#labelHelpFormTitle.waitUntilElementIsNotVisible(timeouts.timeoutMedium);
-        return this.#labelHelpFormTitle.isElementVisible(false);
+    async waitUntilHelpFormIsNotVisible(){
+        return this.#labelHelpFormTitle.waitUntilElementIsNotVisible(timeouts.timeoutMedium);
     }
 
     async clickHideHelpForm(){
@@ -81,8 +81,9 @@ class Card1Page extends BaseForm{
     }
 
     async selectDomainName(){
-        let domains = await this._getListOfElementNames(By.xpath(this.#domainNamesXpath))
-        return this.#comboboxDomainName.clickItem(By.xpath(`${this.#domainNamesXpath}[${StringUtils.getRandomIntInclusive(1, domains.length)}]`))
+        const domainNamesString =  await this.#labelDomainNames.getText();       
+        const ListOfDomainNames = domainNamesString.split('\n');
+        return this.#comboboxDomainName.clickItem(By.xpath(`${this.#domainNamesXpath}[${StringUtils.getRandomIntInclusive(1, ListOfDomainNames.length)}]`))
     }
 
     async clickToPassword(){
