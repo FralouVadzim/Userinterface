@@ -1,10 +1,12 @@
 import {assert} from "chai";
 import config from "../config/config.json" assert {type: 'json'};
 import testData from "../resources/testData.json" assert {type: 'json'};
+import user5 from "../resources/user5.json" assert {type: 'json'};
 import statusCode from "../config/statusCode.json" assert {type: 'json'};
 import contentType from "../config/contentType.json" assert {type: 'json'};
 import {StringUtils} from "../utils/stringUtils.js"
 import {JsonplaceholderApi} from "../api/jsonplaceholderApi.js"
+
 
 describe('Api test', function(){
     it('Jsonplaceholder test', async() =>{
@@ -15,7 +17,7 @@ describe('Api test', function(){
         const allPostsData = Object.values(allPosts.data);
         const allPostsDataSorted = [...allPostsData].sort((user1, user2) => {return user1.id - user2.id});
         assert.equal(allPosts.statusCode,statusCode.StatusCodeOK, 'Status codes are not equal');
-        assert.include(allPosts.contentType, contentType.jsonType, `Content type does not ${contentType.jsonType}`);
+        assert.include(allPosts.contentType, contentType.jsonType, `Content type does not match ${contentType.jsonType}`);
         assert.deepEqual(allPostsData, allPostsDataSorted, 'Users are not sorted by ID');
 
         // Step 2
@@ -40,5 +42,18 @@ describe('Api test', function(){
         assert.equal(createdPost.data.body, userBodyToPost, `User body does not match expected "${userBodyToPost}`);
         assert.equal(createdPost.data.title, userTitleToPost, `User title does not match expected "${userTitleToPost}`);
         assert.isNumber(createdPost.data.id, 'User id is empty');
+
+        // Step 5
+        const allUsers = await api.getAllUsers();
+        const user5testData = user5;
+        let user5FromResponse = Object.values(allUsers.data).find(user => user.id === testData.responce5UserId);        
+        assert.equal(allUsers.statusCode,statusCode.StatusCodeOK, 'Status codes are not equal');
+        assert.include(allUsers.contentType, contentType.jsonType, `Content type does not match ${contentType.jsonType}`);
+        assert.deepEqual(user5FromResponse, user5testData, 'User data are not equal');
+
+        // Step 6
+        user5FromResponse = await api.getUserById(testData.request6RouteValue);
+        assert.equal(user5FromResponse.statusCode,statusCode.StatusCodeOK, 'Status codes are not equal');
+        assert.deepEqual(user5FromResponse.data, user5testData, 'Users are not equal');
     })
 })

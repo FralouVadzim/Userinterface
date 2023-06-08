@@ -4,6 +4,7 @@ import headers from "../config/headers.json" assert {type: 'json'};
 import path from "path";
 
 export class JsonplaceholderApi extends BaseApi{
+    
     #baseUrl;
     #routePosts;
     #routeUsers;
@@ -20,8 +21,18 @@ export class JsonplaceholderApi extends BaseApi{
         return this.#getObjectToReturn(response)
     }
 
+    async getAllUsers(){
+        const response = await this.getRequest(path.join(this.#baseUrl, this.#routeUsers));
+        return this.#getObjectToReturn(response)
+    }
+
     async getPostById(id){
         const response = await this.getRequest(path.join(this.#baseUrl, this.#routePosts, id));
+        return this.#getObjectToReturn(response)
+    }
+
+    async getUserById(id){
+        const response = await this.getRequest(path.join(this.#baseUrl, this.#routeUsers, id));
         return this.#getObjectToReturn(response)
     }
 
