@@ -5,44 +5,37 @@ import path from "path";
 
 export class JsonplaceholderApi extends BaseApi{
     
-    #baseUrl;
-    #routePosts;
-    #routeUsers;
+    static #baseUrl = config.baseUrl
+    static #routePosts = config.routePosts;
+    static #routeUsers = config.routeUsers;
 
-    constructor(){
-        super();
-        this.#baseUrl = config.baseUrl;
-        this.#routePosts = config.routePosts;
-        this.#routeUsers = config.routeUsers;
-    }
-    
-    async getAllPosts(){
+    static async getAllPosts(){
         const response = await this.getRequest(path.join(this.#baseUrl, this.#routePosts));
         return this.#getObjectToReturn(response)
     }
 
-    async getAllUsers(){
+    static async getAllUsers(){
         const response = await this.getRequest(path.join(this.#baseUrl, this.#routeUsers));
         return this.#getObjectToReturn(response)
     }
 
-    async getPostById(id){
+    static async getPostById(id){
         const response = await this.getRequest(path.join(this.#baseUrl, this.#routePosts, id));
         return this.#getObjectToReturn(response)
     }
 
-    async getUserById(id){
+    static async getUserById(id){
         const response = await this.getRequest(path.join(this.#baseUrl, this.#routeUsers, id));
         return this.#getObjectToReturn(response)
     }
 
-    async getCreatedPost(userTitle, userBody, userId){
+    static async getCreatedPost(userTitle, userBody, userId){
         const body = this.#getBodyForPostUser(userTitle, userBody, userId)
         const response = await this.postRequest(path.join(this.#baseUrl, this.#routePosts), body);
         return this.#getObjectToReturn(response)
     }
 
-    #getObjectToReturn(response){
+    static #getObjectToReturn(response){
         return {
             statusCode: response.status,
             contentType: response.headers[headers.contentType],
@@ -50,7 +43,7 @@ export class JsonplaceholderApi extends BaseApi{
         }
     }
 
-    #getBodyForPostUser(title, body, userId){
+    static #getBodyForPostUser(title, body, userId){
         return {
             title: title,
             body: body,
