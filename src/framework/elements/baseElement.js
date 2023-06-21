@@ -10,9 +10,9 @@ class BaseElement{
         this.name = name;
     }
 
-    async isPresent(withWait = false, timeout = timeouts.timeoutSmall){
+    async isPresent(timeout = timeouts.timeoutSmall){
         Logger.logInfo(`Check that element '${this.name}' is present`);
-        if(withWait){
+        if(timeout){
             this.waitUntilElementLocated(timeout);
         }
         const el = await browser.getDriver().findElements(this.locator);

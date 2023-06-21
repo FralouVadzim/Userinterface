@@ -9,38 +9,23 @@ const StringUtils = require('../framework/utils/stringUtils');
 const config = require('../config/config.json');
 const timeouts = require('../framework/configuration/timeouts.json')
 
-class Card1Page extends BaseForm{
+class LoginPage extends BaseForm{
 
     constructor(){
         super(new Label(By.className('login-form'), 'Login form label'), 'Card1Page page');
     }
 
     #textboxPassword = new TextBox(By.xpath('//div[@class="login-form__field-row"]//input'), 'Password textBox');
-
     #textboxEmail = new TextBox(By.xpath('//input[@placeholder="Your email"]'), 'Email textBox');
-
-    #textboxDomain = new TextBox(By.xpath('//input[@placeholder="Domain"]'), 'Domain textBox');
-    
+    #textboxDomain = new TextBox(By.xpath('//input[@placeholder="Domain"]'), 'Domain textBox');    
     #comboboxDomainName = new ComboBox(By.className('dropdown__field'), 'Domain name comboBox');
-
     #checkBoxTerms = new CheckBox(By.className('checkbox__label'), "CheckBox terms and conditions");
-
     #buttonNextPage = new Button(By.xpath('//*[@class="button--secondary"]'), "Button next");
-
     #domainNamesXpath = '//div[@class="dropdown__list-item"]';
-
-    #email = StringUtils.generateRandomCapitalString(config.numberOfRandomCharsForEmail) + StringUtils.getRandomIntInclusive(0,9);
-
-    #password = this.#email + StringUtils.generateRandomString(config.numberOfRandomCharsForPass);
-
     #buttonHideHelpFrom = new Button(By.xpath('//div[@class="align__cell u-right"]//button'), 'Hide help form button');
-
     #labelHelpFormTitle = new Label(By.className('help-form__title'), 'Help form title label');
-
     #buttonAcceptCookies = new Button(By.xpath('//button[contains(text(),"Not")]'), 'Accept cookies button');
-
     #labelTimer = new Label(By.className('timer'), 'Timer label');
-
     #labelDomainNames =  new Label(By.className('dropdown__list'), 'Domain names label');
 
     async getTimerText(){
@@ -90,20 +75,20 @@ class Card1Page extends BaseForm{
         return this.#textboxPassword.click();
     }
 
-    async typePassword(){
+    async typePassword(password){
         const textbox = this.#textboxPassword;
         await textbox.clear();
-        return textbox.sendKeys(this.#password);
+        return textbox.sendKeys(password);
     }
 
     async clickToEmail(){
         return this.#textboxEmail.click();
     }
 
-    async typeEmail(){
-        let textbox = this.#textboxEmail;
+    async typeEmail(email){
+        const textbox = this.#textboxEmail;
         await textbox.clear();
-        return textbox.sendKeys(this.#email);
+        return textbox.sendKeys(email);
     }
 
     async clickToDomain(){
@@ -111,11 +96,11 @@ class Card1Page extends BaseForm{
     }
 
     async typeDomain(){
-        let textbox = this.#textboxDomain
+        const textbox = this.#textboxDomain
         await textbox.clear();
         const password = StringUtils.generateRandomString(config.numberOfRandomCharsForDomain);
         return textbox.sendKeys(password);
     }
 }
 
-module.exports = new Card1Page();
+module.exports = new LoginPage();

@@ -6,7 +6,7 @@ class Waits{
 
     static #sleepTimeout = 50;
 
-    static sleep(milliseconds) {
+    static #sleep(milliseconds) {
         const date = Date.now();
         let currentDate = null;
         do {
@@ -25,7 +25,7 @@ class Waits{
                     result = true;
                     break;
                 }
-                this.sleep(this.#sleepTimeout);
+                this.#sleep(this.#sleepTimeout);
                 currentDate = new Date();
             }
         }else{
