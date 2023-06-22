@@ -1,0 +1,7 @@
+{
+    "startUrl": "https://userinyerface.com/",
+    "numberOfRandomCharsForPass": "5",
+    "numberOfRandomCharsForEmail": "5",
+    "numberOfRandomCharsForDomain": "4",
+    "uploadFilePartialPath": "\\testData\\image.jpeg"
+}

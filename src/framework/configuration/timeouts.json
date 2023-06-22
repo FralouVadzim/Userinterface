@@ -1,0 +1,6 @@
+{    
+    "timeoutSmall": 10000,
+    "timeoutMedium": 30000,
+    "timeoutFindItem": 100
+
+}
