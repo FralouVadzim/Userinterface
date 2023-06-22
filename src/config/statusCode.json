@@ -1,0 +1,5 @@
+{
+    "StatusCodeOK": 200,
+    "StatusCodeCreated": 201,
+    "StatusCodeNotFound": 404
+}
